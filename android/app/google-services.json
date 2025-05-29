@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "708550190345",
+    "project_id": "on-spot-12iwyn",
+    "storage_bucket": "on-spot-12iwyn.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708550190345:android:61509c789a809bca9b5fd8",
+        "android_client_info": {
+          "package_name": "com.mycompany.onspot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708550190345-tcelvob0sjl53r2aaav977mu62iuf6ou.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.onspot",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "708550190345-uljrn9fcgqmahht6lg3loedjc688bubo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mycompany.onspot",
+            "certificate_hash": "1168c3e7acc78a14800dbff99d896a402c6a0718"
+          }
+        },
+        {
+          "client_id": "708550190345-0k02qp10pubfjofgcmsaik0m8kvni2dt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPF1h6iBqfsD9VidDXEiSDVTzWOUFnt7s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708550190345-0k02qp10pubfjofgcmsaik0m8kvni2dt.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "708550190345-emrvigv6vf1ki9jslpr8jj81413qamdp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.onspot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

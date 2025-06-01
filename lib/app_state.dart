@@ -108,6 +108,12 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _AvSpots = prefs.getInt('ff_AvSpots') ?? _AvSpots;
     });
+    _safeInit(() {
+      _nbusers = prefs.getInt('ff_nbusers') ?? _nbusers;
+    });
+    _safeInit(() {
+      _nbNeuchatel = prefs.getInt('ff_nbNeuchatel') ?? _nbNeuchatel;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -537,6 +543,32 @@ class FFAppState extends ChangeNotifier {
   set AvSpots(int value) {
     _AvSpots = value;
     prefs.setInt('ff_AvSpots', value);
+  }
+
+  bool _NewUSerAdded = false;
+  bool get NewUSerAdded => _NewUSerAdded;
+  set NewUSerAdded(bool value) {
+    _NewUSerAdded = value;
+  }
+
+  int _nbusers = 0;
+  int get nbusers => _nbusers;
+  set nbusers(int value) {
+    _nbusers = value;
+    prefs.setInt('ff_nbusers', value);
+  }
+
+  int _nbNeuchatel = 0;
+  int get nbNeuchatel => _nbNeuchatel;
+  set nbNeuchatel(int value) {
+    _nbNeuchatel = value;
+    prefs.setInt('ff_nbNeuchatel', value);
+  }
+
+  bool _invalid = false;
+  bool get invalid => _invalid;
+  set invalid(bool value) {
+    _invalid = value;
   }
 }
 

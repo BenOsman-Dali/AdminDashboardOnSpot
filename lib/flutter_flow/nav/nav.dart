@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 
 import '/auth/base_auth_user_provider.dart';
 
+import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 import '/index.dart';
@@ -75,13 +76,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
       errorBuilder: (context, state) =>
-          appStateNotifier.loggedIn ? DashboardWidget() : DashboardWidget(),
+          appStateNotifier.loggedIn ? DashboardWidget() : LoginWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
           builder: (context, _) =>
-              appStateNotifier.loggedIn ? DashboardWidget() : DashboardWidget(),
+              appStateNotifier.loggedIn ? DashboardWidget() : LoginWidget(),
         ),
         FFRoute(
           name: BookingStatsWidget.routeName,
@@ -112,6 +113,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: UsersWidget.routeName,
           path: UsersWidget.routePath,
           builder: (context, params) => UsersWidget(),
+        ),
+        FFRoute(
+          name: LoginWidget.routeName,
+          path: LoginWidget.routePath,
+          builder: (context, params) => LoginWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -282,7 +288,7 @@ class FFRoute {
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/dashboard';
+            return '/login';
           }
           return null;
         },
@@ -296,14 +302,14 @@ class FFRoute {
                 )
               : builder(context, ffParams);
           final child = appStateNotifier.loading
-              ? Container(
-                  color: Color(0xFF7F8284),
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/onspot_(pfe).png',
-                      width: 400.0,
-                      height: 175.0,
-                      fit: BoxFit.fitHeight,
+              ? Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(
+                        FlutterFlowTheme.of(context).primary,
+                      ),
                     ),
                   ),
                 )

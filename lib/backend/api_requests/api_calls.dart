@@ -11,8 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start SpotsManagementAPI Group Code
 
 class SpotsManagementAPIGroup {
-  static String getBaseUrl() =>
-      'https://f0cb-2c0f-f698-4144-408e-1d20-fa20-9a24-1504.ngrok-free.app';
+  static String getBaseUrl() => 'https://8a88-197-17-16-165.ngrok-free.app';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -29,6 +28,12 @@ class SpotsManagementAPIGroup {
   static GetPercentageCall getPercentageCall = GetPercentageCall();
   static NonBookedPercentageCall nonBookedPercentageCall =
       NonBookedPercentageCall();
+  static GetNumberofNeuchatelSpotsCall getNumberofNeuchatelSpotsCall =
+      GetNumberofNeuchatelSpotsCall();
+  static GetNumberofConstanceSpotsCall getNumberofConstanceSpotsCall =
+      GetNumberofConstanceSpotsCall();
+  static GetNumberofBiwaSpotsCall getNumberofBiwaSpotsCall =
+      GetNumberofBiwaSpotsCall();
 }
 
 class GetParkingSpotByIdCall {
@@ -169,11 +174,13 @@ class CreateParkingSpotCall {
     String? department = '',
     int? number,
     bool? available = true,
+    int? spotId,
   }) async {
     final baseUrl = SpotsManagementAPIGroup.getBaseUrl();
 
     final ffApiRequestBody = '''
 {
+  "spot_id": ${spotId},
   "department": "${escapeStringForJson(department)}",
   "number": ${number},
   "available": ${available}
@@ -283,13 +290,84 @@ class NonBookedPercentageCall {
       );
 }
 
+class GetNumberofNeuchatelSpotsCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = SpotsManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNumberofNeuchatelSpots',
+      apiUrl: '${baseUrl}/api/spots/numberNeuchatel',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetNumberofConstanceSpotsCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = SpotsManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNumberofConstanceSpots ',
+      apiUrl: '${baseUrl}/api/spots/numberConstance',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetNumberofBiwaSpotsCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = SpotsManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNumberofBiwaSpots  ',
+      apiUrl: '${baseUrl}/api/spots/numberBiwa',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
 /// End SpotsManagementAPI Group Code
 
 /// Start UserManagementAPI Group Code
 
 class UserManagementAPIGroup {
-  static String getBaseUrl() =>
-      'https://f0cb-2c0f-f698-4144-408e-1d20-fa20-9a24-1504.ngrok-free.app';
+  static String getBaseUrl() => 'https://8a88-197-17-16-165.ngrok-free.app';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
@@ -300,6 +378,7 @@ class UserManagementAPIGroup {
   static DeleteUserCall deleteUserCall = DeleteUserCall();
   static GetAllUsersCall getAllUsersCall = GetAllUsersCall();
   static AddUserrCall addUserrCall = AddUserrCall();
+  static GetNumberofUsersCall getNumberofUsersCall = GetNumberofUsersCall();
 }
 
 class GetUserByIdCall {
@@ -446,7 +525,7 @@ class GetAllUsersCall {
 
   String? id(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$[:].id''',
+        r'''$[0].id''',
       ));
   String? firstName(dynamic response) => castToType<String>(getJsonField(
         response,
@@ -464,6 +543,11 @@ class GetAllUsersCall {
         response,
         r'''$[:].phoneNumber''',
       ));
+  List? booked(dynamic response) => getJsonField(
+        response,
+        r'''$[:].bookedSpotID''',
+        true,
+      ) as List?;
 }
 
 class AddUserrCall {
@@ -507,7 +591,258 @@ class AddUserrCall {
   }
 }
 
+class GetNumberofUsersCall {
+  Future<ApiCallResponse> call({
+    int? number,
+  }) async {
+    final baseUrl = UserManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getNumberofUsers',
+      apiUrl: '${baseUrl}/api/users/number',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? numberUsers(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$''',
+      ));
+}
+
 /// End UserManagementAPI Group Code
+
+/// Start AdminManagementAPI  Group Code
+
+class AdminManagementAPIGroup {
+  static String getBaseUrl() => 'https://8a88-197-17-16-165.ngrok-free.app';
+  static Map<String, String> headers = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'ngrok-skip-browser-warning': 'true',
+  };
+  static GetAdminByIdCall getAdminByIdCall = GetAdminByIdCall();
+  static UpdateAdminCall updateAdminCall = UpdateAdminCall();
+  static DeleteAdminCall deleteAdminCall = DeleteAdminCall();
+  static GetAllAdminsCall getAllAdminsCall = GetAllAdminsCall();
+  static AddAdminCall addAdminCall = AddAdminCall();
+}
+
+class GetAdminByIdCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+  }) async {
+    final baseUrl = AdminManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAdminById ',
+      apiUrl: '${baseUrl}/api/admins/${id}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? userEmail(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.email''',
+      ));
+  String? userFirstName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.firstName''',
+      ));
+  String? userID(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.id''',
+      ));
+  String? userLastName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.lastName''',
+      ));
+  String? userPhonNumber(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.phoneNumber''',
+      ));
+  String? bookedSpotID(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.bookedSpotId''',
+      ));
+}
+
+class UpdateAdminCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? firstName = '',
+    String? lastName = '',
+    String? email = '',
+    String? password = '',
+  }) async {
+    final baseUrl = AdminManagementAPIGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "id": "${escapeStringForJson(id)}",
+  "firstName": "${escapeStringForJson(firstName)}",
+  "lastName": "${escapeStringForJson(lastName)}",
+  "email": "${escapeStringForJson(email)}",
+  "password": "${escapeStringForJson(password)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateAdmin',
+      apiUrl: '${baseUrl}/api/admins/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class DeleteAdminCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+  }) async {
+    final baseUrl = AdminManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'deleteAdmin',
+      apiUrl: '${baseUrl}/api/admins/${id}',
+      callType: ApiCallType.DELETE,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class GetAllAdminsCall {
+  Future<ApiCallResponse> call() async {
+    final baseUrl = AdminManagementAPIGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAllAdmins',
+      apiUrl: '${baseUrl}/api/admins',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  String? id(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[0].id''',
+      ));
+  String? firstName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].firstName''',
+      ));
+  String? lastName(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].lastName''',
+      ));
+  String? email(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].email''',
+      ));
+  String? password(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$[:].password''',
+      ));
+}
+
+class AddAdminCall {
+  Future<ApiCallResponse> call({
+    String? firstName = '',
+    String? lastName = '',
+    String? email = '',
+    String? password = '',
+    String? adminId = '',
+  }) async {
+    final baseUrl = AdminManagementAPIGroup.getBaseUrl();
+
+    final ffApiRequestBody = '''
+{
+  "admin_id": "${escapeStringForJson(adminId)}",
+  "firstName": "${escapeStringForJson(firstName)}",
+  "lastName": "${escapeStringForJson(lastName)}",
+  "email": "${escapeStringForJson(email)}",
+  "password": "${escapeStringForJson(password)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'AddAdmin',
+      apiUrl: '${baseUrl}/api/admins',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'ngrok-skip-browser-warning': 'true',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End AdminManagementAPI  Group Code
 
 class ApiPagingParams {
   int nextPageNumber = 0;

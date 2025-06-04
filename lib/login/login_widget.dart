@@ -4,6 +4,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/random_data_util.dart' as random_data;
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -390,7 +391,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                                       ).toString())) {
                                 GoRouter.of(context).prepareAuthEvent();
 
-                                final user = await authManager.signInWithEmail(
+                                final user =
+                                    await authManager.createAccountWithEmail(
                                   context,
                                   _model.emailTextController.text,
                                   _model.passwordTextController.text,
@@ -398,6 +400,21 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 if (user == null) {
                                   return;
                                 }
+
+                                await UserDetailsRecord.collection
+                                    .doc(user.uid)
+                                    .update(createUserDetailsRecordData(
+                                      password:
+                                          _model.passwordTextController.text,
+                                      email: _model.emailTextController.text,
+                                      uid: random_data.randomString(
+                                        5,
+                                        7,
+                                        true,
+                                        true,
+                                        true,
+                                      ),
+                                    ));
 
                                 _navigate = () => context.goNamedAuth(
                                     DashboardWidget.routeName, context.mounted);
